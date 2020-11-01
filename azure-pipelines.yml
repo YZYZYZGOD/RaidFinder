@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+ - script: |
+    mkdir sync
+    cd sync
+    git clone https://github.com/YZYZYZGOD/RaidFinder.git
+    cd <github project>
+    git remote add azure https://<Azure DevOps Organization>:<token>%40dev.azure.com/<Azure DevOps Organization>/<project>/_git/<repo.git> 8    
+    git branch -D $(branch)
+    git checkout -b $(branch)
+        
+    git push -d azure $(branch)
+    git push -u azure $(branch) --force
+   displayName: 'Command Line Script'
